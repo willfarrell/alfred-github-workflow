@@ -23,7 +23,7 @@ Searching Github for gists, repos, yomyur repos or repos I've starred
 ## Setup
 Github allows 60 request per hour. This isn't very high and can be used up very quickly when doing searches. To get 5000 request per hour, enter in your github credentials.
 
-1. `github username {github_username}` - Required to use `git my` & `git star`
+1. `github username {github_username}` - Required to use `git my`, `git star`, & `gist`
 1. `github password {github_passowrd}`
 1. `github test` - Test Github credentials
 
