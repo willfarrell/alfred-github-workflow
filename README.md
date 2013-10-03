@@ -1,4 +1,4 @@
-Github Workflow ([Download v1.0](https://raw.github.com/willfarrell/alfred-blank-workflow/master/Blank%20Workflow.alfredworkflow))
+Github Workflow ([Download v1.0](https://raw.github.com/willfarrell/alfred-github-workflow/master/Github.alfredworkflow))
 =====================
 
 Github on Alfred
