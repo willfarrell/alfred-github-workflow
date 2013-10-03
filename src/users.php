@@ -4,31 +4,51 @@
 require_once('workflows.php');
 
 $w = new Workflows();
-if (!isset($query)) { $query = urlencode( "{query}" ); }
+if (!isset($query)) { $query = '{query}'; }
+if (!isset($api)) { // repos | starred | gists
+	$parts = explode(" ", $query);
+	$api = array_shift($parts);
+	$query = implode(" ", $parts);
+}
 if (!isset($icon)) { $icon = "icon.png"; }
 
 $username = $w->get( 'github.username', 'settings.plist' );
+$password = $w->get( 'github.password', 'settings.plist' );
 
 $url = "https://api.github.com/users/$username/$api";
 
-$content = $w->request( $url );
-$repos = json_decode( $content );
-
 if (!$username) {
-	$w->result( 'git-username', 'https://github.com/willfarrell/alfred-github-workflow', 'Github Username Required', 'Press Enter to see documentation on how to set up.', 'no' );
-}
-
-if ($repos->message) {
-	$w->result( $repos->message, $repos->message, 'Github Limit', $repos->message, 'no' );
+	$w->result( 'git-username', 'https://github.com/willfarrell/alfred-github-workflow', 'Github Username Required', 'Press Enter to see documentation on how to set up.', 'yes', 'icon.png' );
 } else {
-	foreach($repos as $repo ) {
-		if (!strlen($query) || strpos( strtolower($repo->full_name), strtolower($query)) !== false) {
-			$w->result( 'git-'.$repo->full_name, $repo->html_url, $repo->full_name, $repo->description, 'yes', $icon );
-		}
+	if($username && $password) {
+		exec('sh auth.sh -u '.escapeshellarg($username).' -p '.escapeshellarg($password).' --url '.escapeshellarg($url), $output, $return_var);
+	
+		$data = implode($output);
+		
+		$data = substr($data, strpos($data, "X-GitHub-Request-Id")); // clean string
+		preg_match("/([\[{])/", $data, $matches, PREG_OFFSET_CAPTURE);
+		$start = $matches[0][1];
+		$end = max(strrpos($data, "}"), strrpos($data, "]"))+1;
+		$data = substr($data, $start, $end-$start);
+		
+		$repos = json_decode( $data );
+	} else {
+		$data = $w->request( $url );
+		$repos = json_decode( $data );
 	}
 	
-	if ( count( $w->results() ) == 0 ){
-		$w->result( 'git', null, 'No Repository found', 'No Repository found that match your query', 'no' );
+	if (isset($repos->message)) {
+		$w->result( $repos->message, $repos->message, 'Github Limit', $repos->message, $icon, 'no' );
+	} else {
+		foreach($repos as $repo ) {
+			if (!strlen($query) || strpos( strtolower($repo->full_name), strtolower($query)) !== false) {
+				$w->result( 'git-'.$repo->full_name, $repo->html_url, $repo->full_name, $repo->description, $icon, 'yes' );
+			}
+		}
+		
+		if ( count( $w->results() ) == 0 ){
+			$w->result( 'git', null, 'No Repository found', 'No Repository found that match your query', $icon, 'no' );
+		}
 	}
 }
 
