@@ -33,6 +33,9 @@ Github allows 60 request per hour. This isn't very high and can be used up very 
 - `git star {query}` - Search user starred Github repos
 - `git limit` - Get remaining requests allowed count
 
+- `gist {query}` - Search user gists
+- `gist create` - Create new gist
+
 ## Security
 API calls are made using [Githubs Basic Authentication](http://developer.github.com/guides/getting-started/#authentication). The requests use `-u <your_username>`, **not** `-u <your_username>:<your_password>` which leaves your password in shell history and isn’t recommended (See `src/auth.sh`). Github credentials are stored in `/Library/Application Support/Alfred 2/Workflow Data/com.farrell.github.alfredworkflow/settings.plist`.
 
