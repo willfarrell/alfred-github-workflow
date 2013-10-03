@@ -18,7 +18,7 @@ Run the [Alleyoop Workflow](http://www.alfredforum.com/topic/1582-alleyoop-updat
 ## About
 Searching Github for gists, repos, yomyur repos or repos I've starred
 
-![alt text][github]
+![alt text][my]
 
 ## Setup
 Github allows 60 request per hour. This isn't very high and can be used up very quickly when doing searches. To get 5000 request per hour, enter in your github credentials.
@@ -38,4 +38,4 @@ API calls are made using [Githubs Basic Authentication](http://developer.github.
 ## Contributors
 - [@willfarrell](https://github.com/willfarrell)
 
-[github]: ./screenshots/github.png "Github Workflow"
+[my]: ./screenshots/my.png "Github Workflow"
