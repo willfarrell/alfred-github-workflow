@@ -12,10 +12,10 @@ $username = $w->get( 'github.username', 'settings.plist' );
 $password = $w->get( 'github.password', 'settings.plist' );
 
 if (!$username) {
-	$w->result( 'git-username', 'https://github.com/willfarrell/alfred-github-workflow', 'Github Username Required', 'Press Enter to see documentation on how to set up.', 'yes', 'icon.png' );
+	$w->result( 'git-username', 'https://github.com/willfarrell/alfred-github-workflow#setup', 'Github Username Required', 'Press Enter to see documentation on how to set up.', 'icon.png', 'yes' );
 }
 if (!$password) {
-	$w->result( 'git-password', 'https://github.com/willfarrell/alfred-github-workflow', 'Github Password Required', 'Press Enter to see documentation on how to set up.', 'yes', 'icon.png' );
+	$w->result( 'git-password', 'https://github.com/willfarrell/alfred-github-workflow#setup', 'Github Password Required', 'Press Enter to see documentation on how to set up.', 'icon.png', 'yes' );
 }
 
 if($username && $password) {
