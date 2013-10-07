@@ -16,12 +16,17 @@ if($username && $password) {
 	exec('sh auth.sh -u '.escapeshellarg($username).' -p '.escapeshellarg($password).' --url '.escapeshellarg($url), $output, $return_var);
 
 	$data = implode($output);
-	$content = substr($data, strpos($data, "{"));
-	$content = substr($content, 0, strrpos($content, "}")+1);
-	$repos = json_decode( $content );
+	
+	$data = substr($data, strrpos($data, "X-GitHub-Request-Id")); // clean string
+	preg_match("/([\[{])/", $data, $matches, PREG_OFFSET_CAPTURE);
+	$start = $matches[0][1];
+	$end = max(strrpos($data, "}"), strrpos($data, "]"))+1;
+	$data = substr($data, $start, $end-$start);
+	
+	$repos = json_decode( $data );
 } else {
-	$content = $w->request( $url );
-	$repos = json_decode( $content );
+	$data = $w->request( $url );
+	$repos = json_decode( $data );
 }
 
 if (isset($repos->message)) {

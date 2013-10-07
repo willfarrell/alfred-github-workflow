@@ -28,7 +28,7 @@ Github allows 60 request per hour. This isn't very high and can be used up very 
 1. `github test` - Test Github credentials
 
 ## Commands
-- `git search {query}` - Search all of Github repos
+- `git search {query}` - Search all of Github repos ([Documentation](https://help.github.com/articles/searching-repositories))
 - `git my {query}` - Search user Github repos
 - `git star {query}` - Search user starred Github repos
 - `git limit` - Get remaining requests allowed count

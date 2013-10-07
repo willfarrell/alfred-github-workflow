@@ -25,7 +25,7 @@ if (!$username) {
 	
 		$data = implode($output);
 		
-		$data = substr($data, strpos($data, "X-GitHub-Request-Id")); // clean string
+		$data = substr($data, strrpos($data, "X-GitHub-Request-Id")); // clean string
 		preg_match("/([\[{])/", $data, $matches, PREG_OFFSET_CAPTURE);
 		$start = $matches[0][1];
 		$end = max(strrpos($data, "}"), strrpos($data, "]"))+1;
@@ -41,8 +41,13 @@ if (!$username) {
 		$w->result( $repos->message, $repos->message, 'Github Limit', $repos->message, $icon, 'no' );
 	} else {
 		foreach($repos as $repo ) {
-			if (!strlen($query) || strpos( strtolower($repo->full_name), strtolower($query)) !== false) {
-				$w->result( 'git-'.$repo->full_name, $repo->html_url, $repo->full_name, $repo->description, $icon, 'yes' );
+			// repos
+			if (isset($repo->full_name) && (!strlen($query) || strpos( strtolower($repo->full_name), strtolower($query)) !== false)) {
+				$w->result( 'git-'.$repo->full_name, $repo->html_url, $repo->name, $repo->description, $icon, 'yes' );
+			}
+			//gists
+			else if (!strlen($query) || strpos( strtolower($repo->description), strtolower($query)) !== false) {
+				$w->result( 'git-'.$repo->id, $repo->html_url, $repo->description, $repo->html_url, $icon, 'yes' );
 			}
 		}
 		
