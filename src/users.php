@@ -4,7 +4,11 @@
 require_once('workflows.php');
 
 $w = new Workflows();
-if (!isset($query)) { $query = '{query}'; }
+if (!isset($query)) {
+	$query = <<<EOD
+{query}
+EOD;
+}
 if (!isset($api)) { // repos | starred | gists
 	$parts = explode(" ", $query);
 	$api = array_shift($parts);

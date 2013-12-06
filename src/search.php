@@ -4,7 +4,12 @@
 require_once('workflows.php');
 
 $w = new Workflows();
-if (!isset($query)) { $query = urlencode( "{query}" ); }
+if (!isset($query)) {
+	$query = <<<EOD
+{query}
+EOD;
+}
+$query = urlencode( "{query}" );
 
 $username = $w->get( 'github.username', 'settings.plist' );
 $password = $w->get( 'github.password', 'settings.plist' );

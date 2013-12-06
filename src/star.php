@@ -2,7 +2,11 @@
 
 //***********
 
-if (!isset($query)) { $query = '{query}'; }
+if (!isset($query)) {
+	$query = <<<EOD
+{query}
+EOD;
+}
 
 function star($full_name) {
 	global $username, $password;
