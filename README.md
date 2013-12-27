@@ -1,4 +1,4 @@
-Github Workflow ([Download v1.5](https://raw.github.com/willfarrell/alfred-github-workflow/master/Github.alfredworkflow))
+Github Workflow ([Download v1.6](https://raw.github.com/willfarrell/alfred-github-workflow/master/Github.alfredworkflow))
 =====================
 
 Github on Alfred
@@ -23,6 +23,7 @@ Searching Github for gists, repos, user repos, or repos starred by a user
 ## Setup
 Github allows 60 request per hour. This isn't very high and can be used up very quickly when doing searches. To get 5000 request per hour, enter in your github credentials.
 
+1. `github proxy` - Set proxy server if you need it for Internet connectivity
 1. `github username {github_username}` - Required to use `git my`, `git star`, & `gist`
 1. `github password {github_passowrd}` - A [Github Application Token](https://help.github.com/articles/creating-an-access-token-for-command-line-use#creating-a-token) can be used in replace of (Recommended)
 1. `github test` - Test Github credentials

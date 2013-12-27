@@ -9,16 +9,21 @@ if (!isset($query)) {
 {query}
 EOD;
 }
-$query = urlencode( "{query}" );
+$query = urlencode( $query );
 
 $username = $w->get( 'github.username', 'settings.plist' );
 $password = $w->get( 'github.password', 'settings.plist' );
+$proxy = $w->get( 'github.proxy', 'settings.plist' );
 
 //$url = "https://api.github.com/search/repositories?q=$query"; // preview only
 $url = "https://api.github.com/legacy/repos/search/$query";
 
 if($username && $password) {
-	exec('sh auth.sh -u '.escapeshellarg($username).' -p '.escapeshellarg($password).' --url '.escapeshellarg($url), $output, $return_var);
+	$shell_command = 'sh auth.sh -u '.escapeshellarg($username).' -p '.escapeshellarg($password).' --url '.escapeshellarg($url);
+	if ($proxy) {
+		$shell_command .= ' --proxy '.escapeshellarg($proxy);
+	}
+	exec($shell_command, $output, $return_var);
 
 	$data = implode($output);
 	
