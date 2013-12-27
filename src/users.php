@@ -18,6 +18,7 @@ if (!isset($icon)) { $icon = "icon.png"; }
 
 $username = $w->get( 'github.username', 'settings.plist' );
 $password = $w->get( 'github.password', 'settings.plist' );
+$proxy = $w->get( 'github.proxy', 'settings.plist' );
 
 $url = "https://api.github.com/users/$username/$api";
 
@@ -25,7 +26,12 @@ if (!$username) {
 	$w->result( 'git-username', 'https://github.com/willfarrell/alfred-github-workflow', 'Github Username Required', 'Press Enter to see documentation on how to set up.', 'yes', 'icon.png' );
 } else {
 	if($username && $password) {
-		exec('sh auth.sh -u '.escapeshellarg($username).' -p '.escapeshellarg($password).' --url '.escapeshellarg($url), $output, $return_var);
+		$shell_command = 'sh auth.sh -u '.escapeshellarg($username).' -p '.escapeshellarg($password).' --url '.escapeshellarg($url);
+		if ($proxy) {
+			$shell_command .= ' --proxy '.escapeshellarg($proxy);
+			file_put_contents("/tmp/alfred", $shell_command."\n", FILE_APPEND);
+		}
+		exec($shell_command, $output, $return_var);
 	
 		$data = implode($output);
 		

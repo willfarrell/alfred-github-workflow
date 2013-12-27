@@ -32,6 +32,10 @@ while true ; do
             METHOD=$2
             shift 2
         ;;
+        --proxy )
+            PROXY_PARAMETER="-x $2"
+            shift 2
+        ;;
         *)
             break
         ;;
@@ -39,7 +43,7 @@ while true ; do
 done;
 
 expect -c "
-spawn curl -i -X $METHOD -d $JSON -u $USERNAME $URL 
+spawn curl $PROXY_PARAMETER -i -X $METHOD -d $JSON -u $USERNAME $URL
 expect \"Enter host password for user '$USERNAME'\"
 send \"$PASSWORD\r\" 
 interact "
