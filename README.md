@@ -42,4 +42,7 @@ API calls are made using [Githubs Basic Authentication](http://developer.github.
 ## Contributors
 - [@willfarrell](https://github.com/willfarrell)
 
+## Featured
+- [Alfred Workflows for Beginners](http://computers.tutsplus.com/tutorials/alfred-workflows-beginner--mac-55446)
+
 [my]: ./screenshots/my.png "Github Workflow"
