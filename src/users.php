@@ -20,7 +20,7 @@ $username = $w->get( 'github.username', 'settings.plist' );
 $password = $w->get( 'github.password', 'settings.plist' );
 $proxy = $w->get( 'github.proxy', 'settings.plist' );
 
-$url = "https://api.github.com/users/$username/$api";
+$url = "https://api.github.com/users/$username/$api?per_page=100";
 
 if (!$username) {
 	$w->result( 'git-username', 'https://github.com/willfarrell/alfred-github-workflow', 'Github Username Required', 'Press Enter to see documentation on how to set up.', 'yes', 'icon.png' );
