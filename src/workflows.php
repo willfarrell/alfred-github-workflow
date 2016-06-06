@@ -332,7 +332,7 @@ class Workflows {
 			CURLOPT_RETURNTRANSFER => true,					// Returns the result as a string
 			CURLOPT_URL => $url,							// Sets the url to request
 			CURLOPT_FRESH_CONNECT => true,
-                        CURLOPT_USERAGENT => 'willfarrell'                    // https://developer.github.com/v3/#user-agent-required
+                        CURLOPT_USERAGENT => 'alfred-workflow'                    // https://developer.github.com/v3/#user-agent-required
 
 		);
 
