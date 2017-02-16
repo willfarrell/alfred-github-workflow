@@ -15,8 +15,7 @@ $username = $w->get( 'github.username', 'settings.plist' );
 $password = $w->get( 'github.password', 'settings.plist' );
 $proxy = $w->get( 'github.proxy', 'settings.plist' );
 
-//$url = "https://api.github.com/search/repositories?q=$query"; // preview only
-$url = "https://api.github.com/legacy/repos/search/$query";
+$url = "https://api.github.com/search/repositories?q=$query";
 
 if($username && $password) {
 	$shell_command = 'sh auth.sh -u '.escapeshellarg($username).' -p '.escapeshellarg($password).' --url '.escapeshellarg($url);
@@ -42,11 +41,11 @@ if($username && $password) {
 if (isset($repos->message)) {
 	$w->result( $repos->message, $repos->message, 'Github Limit', $repos->message, 'icon.png', 'no' );
 } else {
-	$repos = $repos->repositories;
+	$repos = $repos->items;
 	foreach($repos as $repo ) {
 		$lang = $repo->language ? ' ('.$repo->language.')' : '';
 		$repo->full_name = $repo->username.'/'.$repo->name;
-		$w->result( 'git-'.$repo->full_name, $repo->url, $repo->name.''.$lang, $repo->description, 'icon.png', 'yes' );
+		$w->result( 'git-'.$repo->full_name, $repo->html_url, $repo->name.''.$lang, $repo->description, 'icon.png', 'yes' );
 	}
 	
 	if ( count( $w->results() ) == 0 ){
